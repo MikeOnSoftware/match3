@@ -17,6 +17,8 @@ public class ButtonClickHandler : MonoBehaviour
 
     void ClickEvent()
     {
+        GameObject.Find("SelectSound").GetComponent<AudioSource>().Play();
+
         clickedHider = this.gameObject;
         clickedHider.SetActive(false);
         clickedObject = clickedHider.transform.parent.gameObject;
