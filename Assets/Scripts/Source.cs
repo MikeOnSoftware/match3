@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class Source : MonoBehaviour
 {
@@ -19,8 +18,14 @@ public class Source : MonoBehaviour
 
     int score = 0;
 
+    GameManager manager;
+    CameraShake cameraShake;
+
     void Start()
     {
+        cameraShake = FindObjectOfType<CameraShake>();
+
+        manager = FindObjectOfType<GameManager>();
         tiles = new GameObject[width, height];
         SetupGameBoard();
         clickedObjects = new List<GameObject>();
@@ -29,6 +34,10 @@ public class Source : MonoBehaviour
     private void Update()
     {
         CheckForMatch();
+        if (manager.OrientationChanged())
+        {
+            manager.OnRestart();
+        }
     }
 
     void SetupGameBoard()
@@ -74,15 +83,29 @@ public class Source : MonoBehaviour
                 score++;
                 Debug.Log(score);
                 scoreText.text = "Score: " + score.ToString();
+                GameObject.Find("MatchSound").GetComponent<AudioSource>().Play();
             }
-            Destroy(clickedObjects[0], .2f);
-            Destroy(clickedObjects[1], .2f);
+            else
+            {
+                ShakeCamera();
+            }
+            Destroy(clickedObjects[0], .3f);
+            Destroy(clickedObjects[1], .3f);
             clickedObjects = new List<GameObject>();
         }
     }
 
-    public void OnRestart()
+    void ShakeCamera()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (cameraShake != null)
+        {
+            cameraShake = FindObjectOfType<CameraShake>();
+            Debug.Log("camshake != null");
+            cameraShake.Play();
+        }
+        else
+        {
+            Debug.Log("camshake == null");
+        }
     }
 }
