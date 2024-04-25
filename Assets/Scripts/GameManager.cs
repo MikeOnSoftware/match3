@@ -50,15 +50,8 @@ public class GameManager : MonoBehaviour
         }
     }
     internal bool OrientationChanged()
-    {
-        if (orientationState != startOrientationState)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    {        
+        return orientationState != startOrientationState;
     }
 
     public void OnRestart()
