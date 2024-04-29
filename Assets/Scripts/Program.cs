@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
+using Assets.Scripts.FX;
 
 namespace Assets.Scripts
 {
