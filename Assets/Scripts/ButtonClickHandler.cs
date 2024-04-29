@@ -6,9 +6,6 @@ class ButtonClickHandler : MonoBehaviour
 {
     Program program;
 
-    GameObject clickedHider;
-    GameObject clickedObject;
-
     void Awake()
     {
         program = FindObjectOfType<Program>();
@@ -20,11 +17,11 @@ class ButtonClickHandler : MonoBehaviour
     {
         GameObject.Find("SelectSound").GetComponent<AudioSource>().Play();
 
-        clickedHider = this.gameObject;
+        var clickedHider = this.gameObject;
         clickedHider.SetActive(false);
-        clickedObject = clickedHider.transform.parent.gameObject;
+        var clickedObject = clickedHider.transform.parent.gameObject;
 
-        program.clickedObject = this.clickedObject;
+        program.clickedObject = clickedObject;
         program.clickedObjects.Add(clickedObject);
     }
 }
