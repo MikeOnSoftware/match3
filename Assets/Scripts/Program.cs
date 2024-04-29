@@ -3,50 +3,53 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 
-public class Program : MonoBehaviour
+namespace Assets.Scripts
 {
-    [SerializeField] TextMeshProUGUI scoreText;
-
-    CameraShake cameraShake;
-    AudioSource matchSound;
-
-    internal GameObject clickedObject;
-    internal List<GameObject> clickedObjects;
-
-    int score = 1;
-
-    void Start()
+    public class Program : MonoBehaviour
     {
-        matchSound = GameObject.Find("MatchSound").GetComponent<AudioSource>();
-        cameraShake = FindObjectOfType<CameraShake>();
-        clickedObjects = new List<GameObject>();
-    }
+        [SerializeField] TextMeshProUGUI scoreText;
 
-    private void Update() => CheckForMatch();
+        CameraShake cameraShake;
+        AudioSource matchSound;
 
-    void CheckForMatch()
-    {
-        if (clickedObjects.Count == 2)
+        internal GameObject clickedObject;
+        internal List<GameObject> clickedObjects;
+
+        int score = 1;
+
+        void Start()
         {
-            if (IsMatch(clickedObjects))
-            {
-                ScoreUp();
-                matchSound.Play();
-            }
-            else cameraShake.Play();
-
-            DisableClickedPair();
+            matchSound = GameObject.Find("MatchSound").GetComponent<AudioSource>();
+            cameraShake = FindObjectOfType<CameraShake>();
+            clickedObjects = new List<GameObject>();
         }
-    }
 
-    bool IsMatch(List<GameObject> clickedObjects) => clickedObjects[0].name == clickedObjects[1].name;
+        private void Update() => CheckForMatch();
 
-    void ScoreUp() => scoreText.text = $"Score: {score++}";
+        void CheckForMatch()
+        {
+            if (clickedObjects.Count == 2)
+            {
+                if (IsMatch(clickedObjects))
+                {
+                    ScoreUp();
+                    matchSound.Play();
+                }
+                else cameraShake.Play();
 
-    void DisableClickedPair()
-    {
-        Destroy(clickedObjects[0].GetComponent<Image>(), .3f);
-        Destroy(clickedObjects[1].GetComponent<Image>(), .3f);
-        clickedObjects = new List<GameObject>();
+                DisableClickedPair();
+            }
+        }
+
+        bool IsMatch(List<GameObject> clickedObjects) => clickedObjects[0].name == clickedObjects[1].name;
+
+        void ScoreUp() => scoreText.text = $"Score: {score++}";
+
+        void DisableClickedPair()
+        {
+            Destroy(clickedObjects[0].GetComponent<Image>(), .3f);
+            Destroy(clickedObjects[1].GetComponent<Image>(), .3f);
+            clickedObjects = new List<GameObject>();
+        }
     }
 }
