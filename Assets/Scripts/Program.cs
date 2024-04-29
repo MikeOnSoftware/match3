@@ -1,23 +1,25 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class Program : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
 
     CameraShake cameraShake;
-    GameBoard gameBoard;
+    AudioSource matchSound;
 
     internal GameObject clickedObject;
     internal List<GameObject> clickedObjects;
 
-    int score = 0;
+    int score = 1;
 
     void Start()
     {
+        matchSound = GameObject.Find("MatchSound").GetComponent<AudioSource>();
         cameraShake = FindObjectOfType<CameraShake>();
-        gameBoard = FindObjectOfType<GameBoard>();
         clickedObjects = new List<GameObject>();
     }
 
@@ -27,17 +29,25 @@ public class Program : MonoBehaviour
     {
         if (clickedObjects.Count == 2)
         {
-            if (clickedObjects[0].name == clickedObjects[1].name)
+            if (IsMatch(clickedObjects))
             {
-                score++;
-                scoreText.text = "Score: " + score.ToString();
-                GameObject.Find("MatchSound").GetComponent<AudioSource>().Play();
+                ScoreUp();
+                matchSound.Play();
             }
             else cameraShake.Play();
 
-            Destroy(clickedObjects[0], .3f);
-            Destroy(clickedObjects[1], .3f);
-            clickedObjects = new List<GameObject>();
+            DisableClickedPair();
         }
+    }
+
+    bool IsMatch(List<GameObject> clickedObjects) => clickedObjects[0].name == clickedObjects[1].name;
+
+    void ScoreUp() => scoreText.text = $"Score: {score++}";
+
+    void DisableClickedPair()
+    {
+        Destroy(clickedObjects[0].GetComponent<Image>(), .3f);
+        Destroy(clickedObjects[1].GetComponent<Image>(), .3f);
+        clickedObjects = new List<GameObject>();
     }
 }
