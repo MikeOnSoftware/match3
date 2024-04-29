@@ -5,7 +5,7 @@ using TMPro;
 
 namespace Assets.Scripts
 {
-    public class Program : MonoBehaviour
+    class Program : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI scoreText;
 
