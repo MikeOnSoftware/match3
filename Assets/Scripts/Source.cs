@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 
-public class Source : MonoBehaviour
+public class Program : MonoBehaviour
 {
     [SerializeField] internal int width;
     [SerializeField] internal int height;
