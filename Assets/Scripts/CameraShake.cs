@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShake : MonoBehaviour
@@ -9,15 +8,9 @@ public class CameraShake : MonoBehaviour
 
     Vector3 initialPosition;
 
-    void Start()
-    {
-        initialPosition = transform.position;
-    }
+    void Start() => initialPosition = transform.position;
 
-    public void Play()
-    {
-        StartCoroutine(Shake());
-    }
+    public void Play() => StartCoroutine(Shake());
 
     IEnumerator Shake()
     {
@@ -30,6 +23,5 @@ public class CameraShake : MonoBehaviour
         }
         transform.position = initialPosition;
     }
-
 }
 
