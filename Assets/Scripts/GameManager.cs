@@ -20,11 +20,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (OrientationChanged())
-        {
-            Debug.Log(orientationState);
-            OnRestart();
-        }
+        if (IsOrientationChanged()) OnRestart();
         OrientationSet();
     }
 
@@ -49,13 +45,8 @@ public class GameManager : MonoBehaviour
             portraitCanvas.SetActive(false);
         }
     }
-    internal bool OrientationChanged()
-    {        
-        return orientationState != startOrientationState;
-    }
 
-    public void OnRestart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    bool IsOrientationChanged() => orientationState != startOrientationState;
+
+    void OnRestart() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }
