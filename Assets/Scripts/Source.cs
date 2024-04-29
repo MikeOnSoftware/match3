@@ -4,16 +4,16 @@ using TMPro;
 
 public class Source : MonoBehaviour
 {
-    [SerializeField] internal int    width;
-    [SerializeField] internal int    height;
-    [SerializeField] GameObject[]    tilePrefabs;
-    [SerializeField] GameObject[]    hiders;
+    [SerializeField] internal int width;
+    [SerializeField] internal int height;
+    [SerializeField] GameObject[] tilePrefabs;
+    [SerializeField] GameObject[] hiders;
     [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] GameObject      restartButton;
+    [SerializeField] GameObject restartButton;
 
     GameObject[,] tiles;
 
-    internal GameObject       clickedObject;
+    internal GameObject clickedObject;
     internal List<GameObject> clickedObjects;
 
     int score = 0;
@@ -87,25 +87,11 @@ public class Source : MonoBehaviour
             }
             else
             {
-                ShakeCamera();
+                cameraShake.Play();
             }
             Destroy(clickedObjects[0], .3f);
             Destroy(clickedObjects[1], .3f);
             clickedObjects = new List<GameObject>();
-        }
-    }
-
-    void ShakeCamera()
-    {
-        if (cameraShake != null)
-        {
-            cameraShake = FindObjectOfType<CameraShake>();
-            Debug.Log("camshake != null");
-            cameraShake.Play();
-        }
-        else
-        {
-            Debug.Log("camshake == null");
         }
     }
 }
