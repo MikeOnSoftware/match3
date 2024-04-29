@@ -3,14 +3,14 @@ using UnityEngine.UI;
 
 public class ButtonClickHandler : MonoBehaviour
 {
-    Source src;
+    Program program;
 
     GameObject clickedHider;
     GameObject clickedObject;
 
     void Awake()
     {
-        src = FindObjectOfType<Source>();
+        program = FindObjectOfType<Program>();
         Button button = GetComponent<Button>();
         button.onClick.AddListener(ClickEvent);
     }
@@ -23,8 +23,7 @@ public class ButtonClickHandler : MonoBehaviour
         clickedHider.SetActive(false);
         clickedObject = clickedHider.transform.parent.gameObject;
 
-        src.clickedObject = this.clickedObject;
-        src.clickedObjects.Add(clickedObject);
+        program.clickedObject = this.clickedObject;
+        program.clickedObjects.Add(clickedObject);
     }
-
 }
